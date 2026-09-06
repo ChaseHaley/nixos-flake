@@ -54,3 +54,15 @@ systemd-boot menu, or run `sudo nixos-rebuild switch --rollback`.
 
 Do not change either `stateVersion` just to upgrade packages. Those values
 preserve compatibility; `nix flake update` controls dependency upgrades.
+
+## Boot Windows directly
+
+To reboot straight into the Windows Boot Manager for one boot:
+
+```console
+sudo winboot
+```
+
+This finds the firmware's `Windows Boot Manager` entry, sets UEFI `BootNext`
+to it, and then reboots. It works when Windows and NixOS use different EFI
+System Partitions and does not change the persistent boot order.
