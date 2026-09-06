@@ -44,6 +44,7 @@
   users.users.chase = {
     isNormalUser = true;
     description = "Chase";
+    shell = pkgs.zsh;
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -76,6 +77,19 @@
     withUWSM = true;
     xwayland.enable = true;
   };
+
+  programs.steam = {
+    enable = true;
+    protontricks = {
+      enable = true;
+    };
+  };
+
+  programs.gamescope = {
+    enable = true;
+  };
+
+  programs.zsh.enable = true;
 
   zramSwap.enable = true;
 
