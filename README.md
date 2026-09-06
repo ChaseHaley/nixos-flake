@@ -1,0 +1,56 @@
+# Chase's NixOS configuration
+
+This flake manages both the `nixos` host and Chase's Home Manager profile.
+
+## Layout
+
+- `flake.nix`: pins Nixpkgs and Home Manager and connects the modules.
+- `hosts/nixos/configuration.nix`: machine-wide NixOS settings.
+- `hosts/nixos/hardware-configuration.nix`: generated, machine-specific hardware settings.
+- `home/chase.nix`: Chase's packages and user-level configuration.
+
+## Apply changes
+
+Flakes only see files tracked by Git. For this initial setup, add the new files:
+
+```console
+git add flake.nix flake.lock hosts home README.md .gitignore
+```
+
+Then preview the build:
+
+```console
+sudo nixos-rebuild dry-build --flake .#nixos
+```
+
+Then activate it:
+
+```console
+sudo nixos-rebuild switch --flake .#nixos
+```
+
+The `.#nixos` part selects `nixosConfigurations.nixos` from `flake.nix`.
+Home Manager is integrated into the system rebuild, so a separate
+`home-manager switch` command is not needed.
+
+## Everyday workflow
+
+1. Edit the relevant Nix file.
+2. Run `git add` for any newly created file so the flake can see it.
+3. Format with `nix fmt` if a formatter is added later.
+4. Check with `nix flake check` or use the dry-build command above.
+5. Review `git diff --cached` and `git diff`.
+6. Apply with the switch command and commit the working configuration.
+
+Update pinned inputs deliberately with:
+
+```console
+nix flake update
+sudo nixos-rebuild switch --flake .#nixos
+```
+
+If a new generation causes trouble, select an older generation from the
+systemd-boot menu, or run `sudo nixos-rebuild switch --rollback`.
+
+Do not change either `stateVersion` just to upgrade packages. Those values
+preserve compatibility; `nix flake update` controls dependency upgrades.
