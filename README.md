@@ -66,3 +66,9 @@ sudo winboot
 This finds the firmware's `Windows Boot Manager` entry, sets UEFI `BootNext`
 to it, and then reboots. It works when Windows and NixOS use different EFI
 System Partitions and does not change the persistent boot order.
+
+## Secure Boot operations
+
+This machine uses a Microsoft-signed shim while retaining the ASUS factory
+Secure Boot keys. Read the [Secure Boot runbook](secure-boot/RUNBOOK.md) before
+changing firmware keys, shim, Lanzaboote, the MOK, or EFI boot entries.
