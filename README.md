@@ -4,10 +4,15 @@ This flake manages both the `nixos` host and Chase's Home Manager profile.
 
 ## Layout
 
-- `flake.nix`: pins Nixpkgs and Home Manager and connects the modules.
-- `hosts/nixos/configuration.nix`: machine-wide NixOS settings.
+- `flake.nix`: pins inputs and connects the system, Home Manager, package, and app outputs.
+- `hosts/nixos/configuration.nix`: imports the machine's NixOS modules.
 - `hosts/nixos/hardware-configuration.nix`: generated, machine-specific hardware settings.
-- `home/chase.nix`: Chase's packages and user-level configuration.
+- `hosts/nixos/desktop.nix`: graphics, NVIDIA, Hyprland, gaming, and the greeter.
+- `hosts/nixos/networking.nix`: networking, locale, and time zone settings.
+- `hosts/nixos/system.nix`: system packages, Nix settings, zram, and system version.
+- `hosts/nixos/users.nix`: user accounts and system-level shell setup.
+- `home/chase/`: Chase's Home Manager configuration, split by concern.
+- `secure-boot/`: shim package, NixOS integration, and maintenance apps.
 
 ## Apply changes
 
